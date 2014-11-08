@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+
+    <!-- provider of HelloService -->
+    <bean class="com.googlecode.excavator.spring.ExcavatorProviderSpringFactoryBean" lazy-init="false">
+        <property name="targetInterface"
+                  value="com.googlecode.excavator.demo.service.HelloService"/>
+        <property name="targetObject">
+            <bean class="com.googlecode.excavator.demo.service.impl.HelloServiceImpl"/>
+        </property>
+        <property name="group" value="DEFAULT"/>
+        <property name="version" value="1.0.0-test"/>
+        <property name="defaultTimeout" value="60000"/>
+    </bean>
+
+
+
+    <!-- consumer of HelloService -->
+    <bean id="helloService"
+          class="com.googlecode.excavator.spring.ExcavatorConsumerSpringFactoryBean" lazy-init="false">
+        <property name="targetInterface"
+                  value="com.googlecode.excavator.demo.service.HelloService"/>
+        <property name="group" value="DEFAULT"/>
+        <property name="version" value="1.0.0-test"/>
+        <property name="defaultTimeout" value="60000"/>
+    </bean>
+
+</beans>
