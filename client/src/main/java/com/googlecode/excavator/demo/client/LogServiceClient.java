@@ -4,8 +4,10 @@ import com.googlecode.excavator.demo.common.LogException;
 import com.googlecode.excavator.demo.common.domain.ResultDO;
 import com.googlecode.excavator.demo.common.service.LogService;
 
+import java.io.Serializable;
+
 /**
- * Created by vlinux on 14/12/6.
+ * 日志服务客户端
  */
 public class LogServiceClient {
 
@@ -19,7 +21,7 @@ public class LogServiceClient {
      * @return 记录日志是否成功
      * @throws com.googlecode.excavator.demo.common.LogException 记录日志发生异常
      */
-    public ResultDO<Void> info(String format, Object... args) throws LogException {
+    public ResultDO<Void> info(String format, Serializable... args) throws LogException {
         return logService.info(format, args);
     }
 

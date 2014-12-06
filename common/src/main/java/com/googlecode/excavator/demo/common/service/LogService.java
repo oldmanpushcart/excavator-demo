@@ -3,6 +3,8 @@ package com.googlecode.excavator.demo.common.service;
 import com.googlecode.excavator.demo.common.LogException;
 import com.googlecode.excavator.demo.common.domain.ResultDO;
 
+import java.io.Serializable;
+
 /**
  * 日志服务
  */
@@ -16,6 +18,6 @@ public interface LogService {
      * @return 记录日志是否成功
      * @throws LogException 记录日志发生异常
      */
-    ResultDO<Void> info(String format, Object... args) throws LogException;
+    ResultDO<Void> info(String format, Serializable... args) throws LogException;
 
 }

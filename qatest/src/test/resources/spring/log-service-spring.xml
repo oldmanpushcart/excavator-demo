@@ -3,9 +3,21 @@
 <beans>
 
 
-
     <!-- consumer of LogServiceClient -->
     <bean id="logServiceClient" class="com.googlecode.excavator.demo.client.LogServiceClient">
+        <property name="logService">
+            <bean class="com.googlecode.excavator.spring.ExcavatorConsumerSpringFactoryBean" lazy-init="false">
+                <property name="targetInterface"
+                          value="com.googlecode.excavator.demo.common.service.LogService"/>
+                <property name="group" value="DEFAULT"/>
+                <property name="version" value="1.0.0-test"/>
+                <property name="defaultTimeout" value="60000"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="asyncLogServiceClient" class="com.googlecode.excavator.demo.client.AsyncLogServiceClient"
+          init-method="init" destroy-method="destroy">
         <property name="logService">
             <bean class="com.googlecode.excavator.spring.ExcavatorConsumerSpringFactoryBean" lazy-init="false">
                 <property name="targetInterface"

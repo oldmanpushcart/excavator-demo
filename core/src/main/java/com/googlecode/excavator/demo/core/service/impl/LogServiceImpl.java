@@ -10,6 +10,7 @@ import org.springframework.beans.factory.InitializingBean;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.Serializable;
 
 /**
  * 日志服务默认实现
@@ -29,14 +30,14 @@ public class LogServiceImpl implements LogService, InitializingBean, DisposableB
     private RandomAccessFile logFile;
 
     @Override
-    public ResultDO<Void> info(String format, Object... args) throws LogException {
+    public ResultDO<Void> info(String format, Serializable... args) throws LogException {
 
         final ResultDO<Void> result = new ResultDO<Void>();
 
         try {
 
             final String log = formatManager.format(format, args);
-            logFile.writeBytes(log);
+            logFile.writeBytes(log+"\n");
             result.setSuccess(true);
 
         }
@@ -69,7 +70,7 @@ public class LogServiceImpl implements LogService, InitializingBean, DisposableB
     @Override
     public void destroy() throws Exception {
 
-        if( null != logFile ) {
+        if (null != logFile) {
             logFile.close();
         }
 
