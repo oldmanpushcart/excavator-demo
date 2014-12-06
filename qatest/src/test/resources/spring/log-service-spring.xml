@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+
+
+    <!-- consumer of LogServiceClient -->
+    <bean id="logServiceClient" class="com.googlecode.excavator.demo.client.LogServiceClient">
+        <property name="logService">
+            <bean class="com.googlecode.excavator.spring.ExcavatorConsumerSpringFactoryBean" lazy-init="false">
+                <property name="targetInterface"
+                          value="com.googlecode.excavator.demo.common.service.LogService"/>
+                <property name="group" value="DEFAULT"/>
+                <property name="version" value="1.0.0-test"/>
+                <property name="defaultTimeout" value="60000"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- provider of LogService -->
+    <bean class="com.googlecode.excavator.spring.ExcavatorProviderSpringFactoryBean" lazy-init="false">
+        <property name="targetInterface"
+                  value="com.googlecode.excavator.demo.common.service.LogService"/>
+        <property name="targetObject">
+            <bean class="com.googlecode.excavator.demo.core.service.impl.LogServiceImpl">
+                <property name="logFilePath" value="/tmp/demo.log"/>
+                <property name="formatManager">
+                    <bean class="com.googlecode.excavator.demo.core.manager.impl.FormatManagerImpl"/>
+                </property>
+            </bean>
+        </property>
+        <property name="group" value="DEFAULT"/>
+        <property name="version" value="1.0.0-test"/>
+        <property name="defaultTimeout" value="60000"/>
+    </bean>
+
+
+</beans>
